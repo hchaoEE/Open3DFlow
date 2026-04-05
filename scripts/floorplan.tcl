@@ -44,14 +44,14 @@ if {[info exists ::env(FLOORPLAN_DEF)]} {
   initialize_floorplan -utilization $::env(CORE_UTILIZATION) \
                        -aspect_ratio $aspect_ratio \
                        -core_space $core_margin \
-                       -sites $::env(PLACE_SITE)
+                       -site $::env(PLACE_SITE)
 
 # Initialize floorplan using DIE_AREA/CORE_AREA
 # ----------------------------------------------------------------------------
 } else {
   initialize_floorplan -die_area $::env(DIE_AREA) \
                        -core_area $::env(CORE_AREA) \
-                       -sites $::env(PLACE_SITE)
+                       -site $::env(PLACE_SITE)
 }
 
 if { [info exists ::env(MAKE_TRACKS)] } {

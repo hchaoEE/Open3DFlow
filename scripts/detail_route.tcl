@@ -25,12 +25,6 @@ if { [info exists ::env(OR_K)]} {
   append additional_args " -or_k $::env(OR_K)"
 }
 
-if { [info exists ::env(MIN_ROUTING_LAYER)]} {
-  append additional_args " -bottom_routing_layer $::env(MIN_ROUTING_LAYER)"
-}
-if { [info exists ::env(MAX_ROUTING_LAYER)]} {
-  append additional_args " -top_routing_layer $::env(MAX_ROUTING_LAYER)"
-}
 if { [info exists ::env(VIA_IN_PIN_MIN_LAYER)]} {
   append additional_args " -via_in_pin_bottom_layer $::env(VIA_IN_PIN_MIN_LAYER)"
 }
@@ -71,6 +65,10 @@ set all_args [concat [list \
 puts "detailed_route [join $all_args " "]"
 set_global_routing_layer_adjustment Metal2-Metal3 0.5
 set_global_routing_layer_adjustment Metal4-$::env(MAX_ROUTING_LAYER) 0.25
+
+if { [info exists ::env(MIN_ROUTING_LAYER)] && [info exists ::env(MAX_ROUTING_LAYER)] } {
+  set_routing_layers -signal $::env(MIN_ROUTING_LAYER)-$::env(MAX_ROUTING_LAYER)
+}
 
 detailed_route {*}$all_args
 
